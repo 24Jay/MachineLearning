@@ -14,10 +14,6 @@ def naiveBayesClassfication(testX, p_1_vector, p_0_vector, p_class_1):
     else:
         return 0
 
-    # if '__main__' == __name__:
-
-
-# def testNaiveBayesAlgorithm(entry):
 if __name__ == "__main__":
     document, trainY = bayes.loadData()
     lis = bayes.createVocaList(document)
