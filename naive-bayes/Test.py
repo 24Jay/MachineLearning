@@ -44,8 +44,8 @@ if __name__ == "__main__":
 
     entry1 = ["love", "my", "dalmation"]
     vect1 = bayes.sentence2Vec(lis,entry1)
-    print(entry1,"classfied as :",naiveBayesClassfication(vect1,p_1_vector,p_0_vector,p_class_1))
+    print(entry1,"classified as :",naiveBayesClassfication(vect1,p_1_vector,p_0_vector,p_class_1))
 
     entry2 = ["stupid","garbage"]
     vect2 = bayes.sentence2Vec(lis,entry2)
-    print(entry2,"classfied as :",naiveBayesClassfication(vect2,p_1_vector,p_0_vector,p_class_1))
+    print(entry2,"classified as :",naiveBayesClassfication(vect2,p_1_vector,p_0_vector,p_class_1))
