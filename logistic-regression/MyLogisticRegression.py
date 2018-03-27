@@ -1,7 +1,5 @@
-from math import exp
-
 import pandas as pd
-from numpy import mat, shape, ones
+from numpy import mat, shape, ones, exp
 
 
 def loadData():
@@ -14,8 +12,8 @@ def loadData():
         dataX.append(list(frame.iloc[i, 0:2]))
 
     dataY = list(frame.iloc[:, 2])
-    print(dataY)
-    print(dataX)
+    print(type(dataY))
+    print(type(dataX))
     return dataX, dataY
 
 
@@ -24,8 +22,8 @@ def sigmoid(inX):
 
 
 def gradientAscent(dataX, labels):
-    xMatrix = mat(dataX)
-    yMatrix = mat(labels).transpose()
+    xMatrix = mat(dataX).transpose()
+    yMatrix = mat(labels)
     # print("xMatrix = ", xMatrix)
     # print("yMatrix = ", yMatrix)
 
@@ -36,13 +34,13 @@ def gradientAscent(dataX, labels):
 
     weights = ones((n, 1))
     print(weights)
-    print("shape(weights)=",shape(weights))
+    print("shape(weights)=", shape(weights))
 
     alpha = 0.001
     maxCycles = 500
 
     for k in range(maxCycles):
-        h = sigmoid( weights *xMatrix)
+        h = sigmoid(weights * xMatrix)
         err = yMatrix - h
         weights = weights + alpha * xMatrix.transpose() * err
 
