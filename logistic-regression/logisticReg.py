@@ -1,4 +1,4 @@
-from numpy import mat, shape, ones, array, arange
+from numpy import mat, shape, ones, array, arange, dot
 from numpy.ma import exp
 import matplotlib.pyplot as plt
 
@@ -10,7 +10,7 @@ def loadData():
     for line in fr.readlines():
         lineArr = line.strip().split()
         dataX.append([1.0, float(lineArr[0]), float(lineArr[1])])
-        dataY.append(int(lineArr[2]))
+        dataY.append(float(lineArr[2]))
     return dataX, dataY
 
 
@@ -18,6 +18,7 @@ def sigmoid(inX):
     return 1.0 / (1 + exp(-inX))
 
 
+###梯度下降
 def gradientAscend(dataX, dataY):
     matX = mat(dataX)
     matY = mat(dataY).transpose()
@@ -32,6 +33,21 @@ def gradientAscend(dataX, dataY):
         h = sigmoid(matX * weights)
         error = (matY - h)
         weights = weights + alpha * matX.transpose() * error
+    return weights
+
+
+###随机梯度下降
+def stochasticGradientAscend(dataX, dataY):
+    m, n = shape(dataX)
+    alpha = 0.01
+    weights = ones(n)
+
+    for i in range(150*m):
+        i=i%m
+        h = sigmoid(sum(dataX[i] * weights))
+        error = dataY[i] - h
+        # 这里必须使用dot, 用*会报错
+        weights = weights + dot(alpha * error, dataX[i])
     return weights
 
 
@@ -72,7 +88,10 @@ if __name__ == "__main__":
     dataX, dataY = loadData()
     print("dataX =", dataX)
     print("dataY =", dataY)
+
     w = (gradientAscend(dataX, dataY))
+    # w = stochasticGradientAscend(dataX, dataY)
+
     print("*" * 100)
     print("weight=", w)
     plotBestFit(weights=w)
